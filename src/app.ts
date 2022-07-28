@@ -17,8 +17,14 @@ const googleStrategyConfig = {
 	clientSecret: process.env.GOOGLE_CLIENT_SECRET,
 	callbackURL: '/auth/google/callback',
 };
+const magicLinkStrategyConfig = {
+	secret: 'keyboard cat',
+	userFields: ['email'],
+	tokenField: 'token',
+	verifyUserAfterToken: true,
+};
 
-passportConfig(googleStrategyConfig);
+passportConfig();
 
 app.use(morgan('dev'));
 app.use(

@@ -11,5 +11,4 @@ const config = {
 function verify(accessToken: string, refreshToken: string, profile: any, cb: any) {
 	return cb(null, profile);
 }
-console.log(clientID, clientSecret);
 export default new Strategy(config, verify);

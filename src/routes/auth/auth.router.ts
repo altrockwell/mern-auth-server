@@ -47,14 +47,20 @@ authRouter.get(
 	}
 );
 
-authRouter.get(
-	'/email-magic',
-	passport.authenticate('email-magic', { failureRedirect: '/auth/failed' }),
-	function (req, res) {
-		res.redirect('/');
-	}
+authRouter.post('/email', passport.authenticate('magiclink', { action: 'requestToken' } as any), (req, res) =>
+	res.redirect('/auth/check-your-inbox')
 );
+
+authRouter.get(
+	'/email/callback',
+	passport.authenticate('magiclink', { action: 'acceptToken', userPrimaryKey: 'id' } as any),
+	(req, res) => res.redirect('/me')
+);
+
 authRouter.get('/me', getCurrentUser);
+authRouter.get('/check-your-inbox', (req, res) => {
+	return res.send('Check your Email');
+});
 authRouter.get('/logout', logOutUser);
 authRouter.get('/failed', (req, res) => {
 	res.send('Failed');

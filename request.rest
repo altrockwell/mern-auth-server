@@ -1,7 +1,8 @@
-POST https://localhost:8000/auth/local
+POST https://localhost:8000/auth/email
 content-type: application/json
 
 {
-    "username": "nathanmaru",
-    "password": "password"
+    "email": "nathanmaru7@gmail.com",
+
+
 }

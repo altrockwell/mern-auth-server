@@ -4,6 +4,7 @@ import googleStrategy from './google.strategy';
 import localStrategy from './local.strategy';
 import facebookStrategy from './facebook.strategy';
 import magicStrategy from './magic.strategy';
+import customStrategy from './custom.strategy';
 
 export default function initialize() {
 	// Strategies
@@ -11,6 +12,7 @@ export default function initialize() {
 	passport.use(facebookStrategy);
 	passport.use(localStrategy);
 	passport.use(magicStrategy);
+	passport.use(customStrategy);
 
 	// Serializers
 	passport.serializeUser((user: any, done: VerifyCallback) => done(null, user));

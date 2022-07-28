@@ -19,7 +19,7 @@ authRouter.post(
 	}
 );
 
-authRouter.get('/google', passport.authenticate('google', { scope: ['profile'] }));
+authRouter.get('/google', passport.authenticate('google', { scope: ['profile'] } as any));
 authRouter.get(
 	'/google/callback',
 	passport.authenticate('google', {
@@ -47,14 +47,30 @@ authRouter.get(
 	}
 );
 
-authRouter.post('/email', passport.authenticate('magiclink', { action: 'requestToken' } as any), (req, res) =>
-	res.redirect('/auth/check-your-inbox')
+authRouter.post(
+	'/email',
+	passport.authenticate('magiclink', {
+		action: 'requestToken',
+		failureRedirect: '/auth/failed',
+		failureMessage: true,
+	} as any),
+	(req, res) => res.redirect('/auth/check-your-inbox')
 );
 
 authRouter.get(
-	'/email/callback',
-	passport.authenticate('magiclink', { action: 'acceptToken', userPrimaryKey: 'id' } as any),
-	(req, res) => res.redirect('/me')
+	'/email/verify',
+	passport.authenticate('magiclink', {
+		successReturnToOrRedirect: '/auth/me',
+		failureRedirect: '/auth/failed',
+	})
+);
+
+authRouter.post(
+	'/custom',
+	passport.authenticate('custom', { failureRedirect: '/auth/failed' }),
+	function (req, res) {
+		res.redirect('/auth/check-your-inbox');
+	}
 );
 
 authRouter.get('/me', getCurrentUser);

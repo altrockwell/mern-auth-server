@@ -5,6 +5,7 @@ import localStrategy from './local.strategy';
 import facebookStrategy from './facebook.strategy';
 import magicStrategy from './magic.strategy';
 import customStrategy from './custom.strategy';
+import anonymousStrategy from './anonymous.strategy';
 
 export default function initialize() {
 	// Strategies
@@ -13,6 +14,7 @@ export default function initialize() {
 	passport.use(localStrategy);
 	passport.use(magicStrategy);
 	passport.use(customStrategy);
+	passport.use(anonymousStrategy);
 
 	// Serializers
 	passport.serializeUser((user: any, done: VerifyCallback) => done(null, user));

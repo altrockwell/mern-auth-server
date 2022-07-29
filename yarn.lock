@@ -2840,6 +2840,11 @@ node-releases@^2.0.6:
   resolved "https://registry.npmjs.org/node-releases/-/node-releases-2.0.6.tgz"
   integrity sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==
 
+node-uuid@^1.4.7:
+  version "1.4.8"
+  resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.8.tgz#b040eb0923968afabf8d32fb1f17f1167fdab907"
+  integrity sha512-TkCET/3rr9mUuRp+CpO7qfgT++aAxfDRaalQhwPFzI9BY/2rCDn6OfpZOVggi1AXfTPpfkTrg5f5WQx5G1uLxA==
+
 nodemailer@^6.7.7:
   version "6.7.7"
   resolved "https://registry.yarnpkg.com/nodemailer/-/nodemailer-6.7.7.tgz#e522fbd7507b81c51446d3f79c4603bf00083ddd"
@@ -2968,6 +2973,14 @@ parseurl@~1.3.3:
   version "1.3.3"
   resolved "https://registry.npmjs.org/parseurl/-/parseurl-1.3.3.tgz"
   integrity sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
+
+passport-anonym-uuid@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/passport-anonym-uuid/-/passport-anonym-uuid-1.0.3.tgz#34225369fe1b71e2db24fac41e8b82c90186c4e6"
+  integrity sha512-bsu59r5hyU0zwqJ3EMdbN0O7O4oZmcjFNhVKXF2PAgPlm1TTJUizJnrkErj4mjOM/mtNE4FwbW4TusrXZJ4lLQ==
+  dependencies:
+    node-uuid "^1.4.7"
+    passport-strategy "1.x.x"
 
 passport-custom@^1.1.1:
   version "1.1.1"

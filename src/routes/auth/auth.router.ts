@@ -73,6 +73,10 @@ authRouter.post(
 	}
 );
 
+authRouter.get('/anonymous', passport.authenticate(['anonymId']), function (req, res) {
+	return res.redirect('/auth/me');
+});
+
 authRouter.get('/me', getCurrentUser);
 authRouter.get('/check-your-inbox', (req, res) => {
 	return res.send('Check your Email');

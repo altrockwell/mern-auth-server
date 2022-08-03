@@ -4,7 +4,7 @@ import { Schema, model, connect, Model } from 'mongoose';
 export interface IUser {
 	_id?: string;
 	name?: string;
-	email: string;
+	email?: string;
 	uid?: string;
 	password?: string;
 }
@@ -44,7 +44,7 @@ userSchema.static('findOneOrCreate', async function (user) {
 
 		return foundUser;
 	} catch (error) {
-		throw new Error('Sorry Something Happen');
+		throw new Error('Sorry Something Happen ' + error);
 	}
 });
 

@@ -70,6 +70,7 @@ authRouter.post(
 		action: 'requestToken',
 		failureRedirect: '/auth/failed',
 		failureMessage: true,
+		session: false,
 	} as any),
 	(req, res) => res.redirect('/auth/check-your-inbox')
 );
@@ -77,9 +78,13 @@ authRouter.post(
 authRouter.get(
 	'/email/verify',
 	passport.authenticate('magiclink', {
-		successReturnToOrRedirect: '/auth/me',
 		failureRedirect: '/auth/failed',
-	})
+	}),
+	function (req, res) {
+		console.log(req.user);
+		const { token, expires } = issueJWT(req.user);
+		return res.json({ accessToken: token, expires, success: true });
+	}
 );
 
 authRouter.post(
@@ -90,9 +95,9 @@ authRouter.post(
 	}
 );
 
-authRouter.get('/anonymous', passport.authenticate(['anonymId']), function (req, res) {
-	// can be used in a button where user can continue as anonymous if auth failed or by choice.
-	return res.redirect('/auth/me');
+authRouter.post('/anonymous', passport.authenticate('anonymId'), function (req, res) {
+	const { token, expires } = issueJWT(req.user);
+	return res.json({ accessToken: token, expires, success: true });
 });
 
 authRouter.get('/me', passport.authenticate('jwt', { session: false }), function (req, res) {

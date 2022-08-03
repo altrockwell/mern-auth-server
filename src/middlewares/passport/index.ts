@@ -10,13 +10,12 @@ import jwtStrategy from './jwt.strategy';
 
 export default function initialize() {
 	// Strategies
-	passport.use(googleStrategy);
-	passport.use(facebookStrategy);
-	passport.use('local', localStrategy);
-	passport.use(magicStrategy);
-	// passport.use(customStrategy);
-	passport.use(anonymousStrategy);
-	passport.use(jwtStrategy);
+	passport.use(googleStrategy); // done
+	passport.use(facebookStrategy); //done
+	passport.use('local', localStrategy); //done
+	passport.use(magicStrategy); //done
+	passport.use(anonymousStrategy); //done
+	passport.use(jwtStrategy); //done
 
 	// Serializers
 	passport.serializeUser((user: any, done: VerifyCallback) => done(null, user));

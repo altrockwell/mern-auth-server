@@ -12,7 +12,7 @@ const config = {
 async function verify(accessToken: string, refreshToken: string, profile: any, done: any) {
 	try {
 		const user = await User.findOneOrCreate({
-			email: profile._json.email,
+			email: profile._json.email || profile.id,
 			name: profile.displayName,
 			uid: profile.id,
 		});

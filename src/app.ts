@@ -7,45 +7,49 @@ import session from 'express-session';
 import passport from 'passport';
 import passportConfig from './middlewares/passport';
 import authRouter from './routes/auth/auth.router';
+import cookieParser from 'cookie-parser';
+import MongoStore from 'connect-mongo';
+import mongoose from 'mongoose';
 
 const app = express();
 
 dotenv.config();
-
-const googleStrategyConfig = {
-	clientID: process.env.GOOGLE_CLIENT_ID,
-	clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-	callbackURL: '/auth/google/callback',
-};
-const magicLinkStrategyConfig = {
-	secret: 'keyboard cat',
-	userFields: ['email'],
-	tokenField: 'token',
-	verifyUserAfterToken: true,
-};
-
 passportConfig();
 
 app.use(morgan('dev'));
-app.use(
-	cors({
-		origin: 'http://localhost:3000',
-		methods: 'GET,POST,PUT,DELETE',
-		credentials: true,
-	})
-);
+
 app.use(helmet());
 
-app.use(
-	session({
-		secret: 'somethingsecretgoeshere',
-		resave: false,
-		saveUninitialized: true,
-		cookie: { secure: true },
-	})
-);
+// const sessionDB = mongoose
+// 	.createConnection('mongodb://127.0.0.1:27017/mern_auth_sessions')
+// 	.then((m) => m.connection.getClient());
+
+mongoose.connect('mongodb://127.0.0.1:27017/mern_auth', () => {
+	console.log('Connected to Database');
+});
+// mongoose.connect('mongodb://127.0.0.1:27017/mern_auth', () => {
+// 	console.log('Connected to Database');
+// });
+
+app.use(cors());
+// app.use(
+// 	session({
+// 		secret: 'somethingsecretgoeshere',
+// 		resave: false,
+// 		saveUninitialized: true,
+// 		// store: MongoStore.create({
+// 		// 	clientPromise: sessionDB,
+// 		// 	stringify: false,
+// 		// }),
+// 		cookie: {
+// 			secure: true,
+// 		},
+// 	})
+// );
+
+// app.use(cookieParser());
 app.use(passport.initialize());
-app.use(passport.session());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
